@@ -52,7 +52,7 @@ export default {
   height: 330px;
   position: absolute;
   left: 45%;
-  top: 20%;
+  top: 30%;
   background-color: #eeee;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }

@@ -56,7 +56,6 @@ export default {
 </script>
 <style scoped>
 .header {
-  position: relative;
   width: 1000px;
   height: 50px;
   background-color: #fff;

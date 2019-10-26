@@ -32,12 +32,11 @@ export default {
 </script>
 <style scoped>
 #total {
-  display:none;
   width: 160px;
   height: 130px;
   position: absolute;
-  left: 490px;
-  top: 50px;
+  left: 48%;
+  top: 7%;
   border:1px solid rgb(229,229,229)
 }
 .all,.work,.life,.study {
