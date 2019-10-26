@@ -32,6 +32,7 @@ export default {
 </script>
 <style scoped>
 #total {
+display: none;
   width: 160px;
   height: 130px;
   position: absolute;

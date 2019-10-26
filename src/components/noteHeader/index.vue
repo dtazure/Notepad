@@ -17,42 +17,36 @@
       <img src="../../../image/bottomArrow.png" alt />
     </div>
     <input type="text" placeholder="过滤标题、内容、时间戳" />
-    <noteBuild ref='build'></noteBuild>
-        <total ref="total"></total>
-
+    <noteBuild ref="build"></noteBuild>
+    <total ref="total"></total>
   </div>
 </template>
 <script>
-import noteBuild from '../../components/build'
-import total from '../../components/total'
+import noteBuild from "../../components/build";
+import total from "../../components/total";
 
-
-let flag=0
+let flag = 1;
 export default {
-  components:{
+  components: {
     noteBuild,
-    total,
+    total
   },
-  methods:{
+  methods: {
     //父组件调用子组件中的方法，将子组件显示出来
-    openBuild(){
-      this.$refs.build.show()
+    openBuild() {
+      this.$refs.build.show();
     },
-    switchTotal(){
-      
-       if(flag){
-         
-         flag=0
-         this.$refs.total.close()
-         
-       }else{
-         flag=1
-         this.$refs.total.show()
-   
-       }
+    switchTotal() {
+      if (flag) {
+        flag = 0;
+        this.$refs.total.show();
+      } else {
+        flag = 1;
+        this.$refs.total.close();
+      }
     }
   }
-}
+};
 </script>
 <style scoped>
 .header {
@@ -62,22 +56,21 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #777777;
   font-size: 14px;
-  border-bottom: 1px solid #eaea
+  border-bottom: 1px solid #eaea;
 }
-.title{
-    height: 50px;
-    width: 110px;
-    line-height: 50px;
-    text-align: center;
-    font-size: 18px;
-    margin-left: 7px;
-    
+.title {
+  height: 50px;
+  width: 110px;
+  line-height: 50px;
+  text-align: center;
+  font-size: 18px;
+  margin-left: 7px;
 }
-img{
-    margin-left: 4px;
+img {
+  margin-left: 4px;
 }
 .build {
   margin-left: 300px;
@@ -86,7 +79,6 @@ img{
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 .build:hover,
 .all:hover,
@@ -95,17 +87,16 @@ img{
   background-color: rgb(231, 231, 231);
 }
 .all {
-  
   width: 130px;
   height: 50px;
   display: flex;
   justify-content: flex-start;
   justify-content: center;
   align-items: center;
-  vertical-align: middle
+  vertical-align: middle;
 }
-.count{
-    vertical-align: middle
+.count {
+  vertical-align: middle;
 }
 .sort {
   display: flex;
@@ -123,6 +114,5 @@ input {
   padding-left: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  
 }
 </style>
