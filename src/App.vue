@@ -12,10 +12,13 @@ import noteHeader from './components/noteHeader/index'
 import noteBody from './components/noteBody'
 
 
+
+
 export default {
   components:{
     noteHeader,
-    noteBody
+    noteBody,
+    
    
   },
   name: 'App'
@@ -28,6 +31,7 @@ export default {
   height: 700px;
   background-color: #fff;
   border: 1px solid #333;
-  margin: 0 auto
+  margin: 0 auto;
+  position: relative;
 }
 </style>

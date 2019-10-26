@@ -5,7 +5,7 @@
       新建
       <img src="../../../image/bottomArrow.png" alt />
     </div>
-    <div class="all">
+    <div class="all" @click="switchTotal">
       全部
       <div class="total">
         <span class="count">(4)</span>
@@ -18,24 +18,45 @@
     </div>
     <input type="text" placeholder="过滤标题、内容、时间戳" />
     <noteBuild ref='build'></noteBuild>
+        <total ref="total"></total>
+
   </div>
 </template>
 <script>
 import noteBuild from '../../components/build'
+import total from '../../components/total'
+
+
+let flag=0
 export default {
   components:{
     noteBuild,
+    total,
   },
   methods:{
     //父组件调用子组件中的方法，将子组件显示出来
     openBuild(){
       this.$refs.build.show()
+    },
+    switchTotal(){
+      
+       if(flag){
+         
+         flag=0
+         this.$refs.total.close()
+         
+       }else{
+         flag=1
+         this.$refs.total.show()
+   
+       }
     }
   }
 }
 </script>
 <style scoped>
 .header {
+  position: relative;
   width: 1000px;
   height: 50px;
   background-color: #fff;
@@ -71,6 +92,7 @@ img{
 .build:hover,
 .all:hover,
 .sort:hover {
+  cursor: pointer;
   background-color: rgb(231, 231, 231);
 }
 .all {
