@@ -1,60 +1,80 @@
 <template>
-  <div id="build" ref='build'>
+  <div id="build" ref="build">
     <div class="header">
-      <input type="text" placeholder="标题" />
+      <input type="text" placeholder="标题">
       <select>
         <option>工作</option>
         <option>学习</option>
         <option>生活</option>
       </select>
-      <img @mouseover="over1" src="../../image/save.png" alt ref='beforeImg' />
-      <img @mouseleave="leave1"  class="after" src="../../image/save1.png" alt="" ref='afterImg' >
-      <img @mouseover="over2"  src="../../image/cancel.png" alt ref='beforeImg2' />
-      <img @mouseleave="leave2" @click="closeBuild" class="after" src="../../image/cancel1.png" alt="" ref='afterImg2'>
+      <img @mouseover="over1" src="../../image/save.png" alt ref="beforeImg">
+      <img
+        @mouseleave="leave1"
+        @click="build"
+        class="after"
+        src="../../image/save1.png"
+        alt
+        ref="afterImg"
+      >
+      <img @mouseover="over2" src="../../image/cancel.png" alt ref="beforeImg2">
+      <img
+        @mouseleave="leave2"
+        @click="closeBuild"
+        class="after"
+        src="../../image/cancel1.png"
+        alt
+        ref="afterImg2"
+      >
     </div>
-    <textarea placeholder="内容"></textarea>
+    <textarea placeholder="内容.."></textarea>
   </div>
 </template>
 <script>
+import bus from '../bus.js'
 export default {
-    methods:{
-        //保存和取消按钮的样式改变
-         over1(){
-             this.$refs.beforeImg.style.display='none'
-             this.$refs.afterImg.style.display='block'
-         },
-         over2(){
-             this.$refs.beforeImg2.style.display='none'
-             this.$refs.afterImg2.style.display='block'
-         },
-         leave1(){
-              this.$refs.beforeImg.style.display='block'
-             this.$refs.afterImg.style.display='none'
-         },
-         leave2(){
-              this.$refs.beforeImg2.style.display='block'
-             this.$refs.afterImg2.style.display='none'
-         },
-         //build组件的显示与隐藏
-         show(){
-              this.$refs.build.style.display='block'
-         },
-         closeBuild(){
-             this.$refs.build.style.display='none'
-         }
+  methods: {
+    //保存和取消按钮的样式改变
+    over1() {
+      this.$refs.beforeImg.style.display = "none";
+      this.$refs.afterImg.style.display = "block";
+    },
+    over2() {
+      this.$refs.beforeImg2.style.display = "none";
+      this.$refs.afterImg2.style.display = "block";
+    },
+    leave1() {
+      this.$refs.beforeImg.style.display = "block";
+      this.$refs.afterImg.style.display = "none";
+    },
+    leave2() {
+      this.$refs.beforeImg2.style.display = "block";
+      this.$refs.afterImg2.style.display = "none";
+    },
+    //build组件的显示与隐藏
+    show() {
+      this.$refs.build.style.display = "block";
+    },
+    closeBuild() {
+      this.$refs.build.style.display = "none";
+      console.log(this.$refs.build);
+      
+    },
+    build(){
+        bus.$emit('build')
     }
-}
+  }
+};
 </script>
 <style scoped>
 #build {
-  display:none;
+  display: none;
   width: 280px;
   height: 330px;
   position: absolute;
   left: 45%;
   top: 30%;
   background-color: #eeee;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .header {
   margin-left: 12px;
@@ -73,7 +93,7 @@ input {
   border: 1px solid #ccc;
 }
 select {
-    margin-left: 15px;
+  margin-left: 15px;
   height: 30px;
   padding-left: 4px;
   border-radius: 5px;
@@ -88,24 +108,23 @@ option {
 option:hover {
   background-color: rgb(230, 230, 230);
 }
-img{
-    margin-left: 13px
+img {
+  margin-left: 13px;
 }
-img:hover{
-    cursor: pointer;
-
+img:hover {
+  cursor: pointer;
 }
-.after{
-    display: none;
+.after {
+  display: none;
 }
-textarea{
-    margin-left: 14px;
-    margin-top: 8px;
-    width: 250px;
-    height: 260px;
-    resize: none;
-    border-radius: 5px;
-    padding-left: 6px;
-    padding-top: 5px
+textarea {
+  margin-left: 14px;
+  margin-top: 8px;
+  width: 250px;
+  height: 260px;
+  resize: none;
+  border-radius: 5px;
+  padding-left: 6px;
+  padding-top: 5px;
 }
 </style>

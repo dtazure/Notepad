@@ -12,30 +12,35 @@
       </div>
       <img src="../../../image/bottomArrow.png" alt />
     </div>
-    <div class="sort">
+    <div class="sort" @click="switchTitle">
       按标题排序
       <img src="../../../image/bottomArrow.png" alt />
     </div>
     <input type="text" placeholder="过滤标题、内容、时间戳" />
     <noteBuild ref="build"></noteBuild>
     <total ref="total"></total>
+    <noteTitle ref="title"></noteTitle>
   </div>
 </template>
 <script>
 import noteBuild from "../../components/build";
 import total from "../../components/total";
+import noteTitle from "../../components/title";
+
 
 let flag = 1;
 export default {
   components: {
     noteBuild,
-    total
+    total,
+    noteTitle
   },
   methods: {
     //父组件调用子组件中的方法，将子组件显示出来
     openBuild() {
       this.$refs.build.show();
     },
+    //全部子组件的显隐
     switchTotal() {
       if (flag) {
         flag = 0;
@@ -43,6 +48,16 @@ export default {
       } else {
         flag = 1;
         this.$refs.total.close();
+      }
+    },
+    //按标题排序子组件的显隐
+    switchTitle(){
+      if (flag) {
+        flag = 0;
+        this.$refs.title.show();
+      } else {
+        flag = 1;
+        this.$refs.title.close();
       }
     }
   }
