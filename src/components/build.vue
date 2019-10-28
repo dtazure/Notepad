@@ -1,8 +1,8 @@
 <template>
   <div id="build" ref="build">
     <div class="header">
-      <input type="text" placeholder="标题">
-      <select>
+      <input type="text" placeholder="标题"  v-model="title">
+      <select v-model="type">
         <option>工作</option>
         <option>学习</option>
         <option>生活</option>
@@ -26,12 +26,19 @@
         ref="afterImg2"
       >
     </div>
-    <textarea placeholder="内容.."></textarea>
+    <textarea placeholder="内容.." v-model="content"></textarea>
   </div>
 </template>
 <script>
 import bus from '../bus.js'
 export default {
+  data(){
+    return{
+          title:'',
+          type:'',
+          content:'',
+    }
+  },
   methods: {
     //保存和取消按钮的样式改变
     over1() {
@@ -60,7 +67,12 @@ export default {
       
     },
     build(){
-        bus.$emit('build')
+      const data ={
+        title : this.title,
+        content : this.content
+      }
+      
+        bus.$emit('build',data)
     }
   }
 };

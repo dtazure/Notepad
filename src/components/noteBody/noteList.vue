@@ -1,9 +1,9 @@
 <template>
 
   <div id="allList"  >
-    <div class="list" ref="note" v-for="item in items" :key="item">
+    <div class="list" ref="note" v-for="(item,index) in items" :key="index">
       <div class="list_header">
-        <div class="title">13213112321323123132132132132112321312321321</div>
+        <div class="title">{{title}}</div>
         <img @mouseover="over1" src="../../../image/revise.png" alt ref="beforeImg">
         <img @mouseleave="leave1" class="after" src="../../../image/revise1.png" alt ref="afterImg" style="display:none">
         <img @mouseover="over2" src="../../../image/delete.png" alt ref="beforeImg2">
@@ -17,11 +17,11 @@
         >
       </div>
       <div class="info">
-        <span>10-26</span>,
-        <span>15:19</span>
-        <span>分类:工作</span>
+        <span>{{data}}</span>,
+        <span>{{time}}</span>
+        <span>分类:{{style}}</span>
       </div>
-      <div class="content">32132</div>
+      <div class="content">{{content}}</div>
     </div>
   </div>
  
@@ -31,11 +31,21 @@
 import bus from '../../bus.js'
 export default {
   mounted(){
-    bus.$on('build',this.build)
+    bus.$on('build',this.build),
+    bus.$on('build',(data)=>{
+         this.title=data.title
+         this.content=data.content
+               
+    })
   },
   data() {
     return {
-      items: ['this.$refs.note']
+      title:'',
+      data:'',
+      time:'',
+      content:'',
+      style:'',
+      items: []
     };
   },
   methods: {
