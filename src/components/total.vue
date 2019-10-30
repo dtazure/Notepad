@@ -38,7 +38,9 @@ display: none;
   position: absolute;
   left: 48%;
   top: 7%;
-  border:1px solid rgb(229,229,229)
+  border:1px solid rgb(229,229,229);
+  z-index: 1;
+  background-color: #fff;
 }
 .all,.work,.life,.study {
  

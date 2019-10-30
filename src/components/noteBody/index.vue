@@ -3,8 +3,8 @@
     <div class="list" ref="note" v-for="(item,index) in items" :key="index" track-by="$index">
       <div class="list_header">
         <div class="title">{{item.title}}</div>
-        <img class="after" src="../../../image/revise1.png" @click="openBuild">
-        <img class="after" src="../../../image/delete1.png">
+        <img class="after" src="../../../image/revise1.png" @click="revise(index)">
+        <img class="after" src="../../../image/delete1.png" @click="delate(index)">
       </div>
       <div class="info">
         <span>{{item.time}}</span>
@@ -12,6 +12,7 @@
       </div>
       <div class="content">{{item.content}}</div>
     </div>
+    <revise ref="revise" :list='list'></revise>
   </div>
 </template>
 <script>
@@ -33,6 +34,7 @@ if (minutes < 10) {
   minutes = "0" + minutes;
 }
 import bus from "../../bus.js";
+import revise from './revise'
 export default {
   mounted() {
     bus.$on("build", data => {
@@ -42,6 +44,9 @@ export default {
       this.style = data.value;
     });
     bus.$on("build", this.build);
+  },
+  components:{
+    revise
   },
   data() {
     return {
@@ -56,7 +61,13 @@ export default {
           content: "蓝月亮袋装洗衣液",
           style: "2"
         }
-      ]
+      ],
+      list:{
+          title:'',
+          time:'',
+          content:'',
+          style:''
+      }
     };
   },
   methods: {
@@ -66,10 +77,17 @@ export default {
         time: this.time,
         style: this.style,
         content: this.content
+      
       });
     },
-    openBuild(){
-      
+    revise(index){
+      this.$refs.revise.show()
+      this.list.title=this.items[index].title
+      this.list.content=this.items[index].content
+      this.list.style=this.items[index].style
+    },
+    delate(index){      
+       this.items.splice(index,1)
     }
   }
 };

@@ -2,27 +2,25 @@
   <div id="build" ref="build">
     <div class="header">
       <input type="text" placeholder="标题"  v-model="title">
-      <select v-model="value">
+      <select v-model="value" >
         <option :value="1">工作</option>
         <option :value="2">学习</option>
         <option :value="3">生活</option>
       </select>
-      <img @mouseover="over1" src="../../image/save.png" alt ref="beforeImg">
+      <img @mouseover="over1" src="../../../image/save.png" alt ref="beforeImg">
       <img
         @mouseleave="leave1"
-        @click="build"
         class="after"
-        src="../../image/save1.png"
-        alt
+        @click="save"
+        src="../../../image/save1.png"
         ref="afterImg"
       >
-      <img @mouseover="over2" src="../../image/cancel.png" alt ref="beforeImg2">
+      <img @mouseover="over2" src="../../../image/cancel.png" alt ref="beforeImg2">
       <img
         @mouseleave="leave2"
         @click="closeBuild"
         class="after"
-        src="../../image/cancel1.png"
-        alt
+        src="../../../image/cancel1.png"
         ref="afterImg2"
       >
     </div>
@@ -30,8 +28,19 @@
   </div>
 </template>
 <script>
-import bus from '../bus.js'
 export default {
+  mounted(){
+    console.log(this.list.content);
+    
+      this.title=this.list.title
+      this.content=this.list.content
+      this.value=this.list.style
+    },
+  props:{
+    list:{
+  
+    }
+  },
   data(){
     return{
           title:'',
@@ -41,6 +50,7 @@ export default {
     }
   },
   methods: {
+    
     //保存和取消按钮的样式改变
     over1() {
       this.$refs.beforeImg.style.display = "none";
@@ -66,18 +76,10 @@ export default {
       this.$refs.build.style.display = "none";
       
     },
-    build(){
-      const data ={
-        title : this.title,
-        content : this.content,
-        value:this.value
-      }
+    save(){
       
-        bus.$emit('build',data)
-        this.title=''
-        this.content=''
-        this.value='1'
     }
+   
   }
 };
 </script>

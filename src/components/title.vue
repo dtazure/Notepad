@@ -30,6 +30,8 @@ export default{
     left: 63%;
     top: 7%;
     text-align: center;
+    z-index: 1;
+    background-color: #fff;
 }
 p{
     height: 25px;

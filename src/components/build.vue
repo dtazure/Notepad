@@ -72,7 +72,6 @@ export default {
         content : this.content,
         value:this.value
       }
-      
         bus.$emit('build',data)
         this.title=''
         this.content=''
