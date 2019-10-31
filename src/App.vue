@@ -39,7 +39,7 @@ body{
   border: 1px solid rgb(189,189,189);
   margin: 0 auto;
   position: relative;
-   background:url('../image/x.jpg') 
+   background:url('../image/dd.jpg') 
 
 }
 .bgc{
