@@ -160,8 +160,7 @@ export default {
 #allList {
   display: flex;
   justify-content: flex-start;
-  flex-wrap: wrap
- 
+  flex-wrap: wrap;
 }
 .list {
   width: 215px;
