@@ -1,11 +1,11 @@
 <template>
   <div id="build" ref="build">
     <div class="header">
-      <input type="text" placeholder="标题"  v-model="title">
+      <input type="text" placeholder="标题" v-model="title">
       <select v-model="value">
-        <option :value="1">工作</option>
-        <option :value="2">学习</option>
-        <option :value="3">生活</option>
+        <option :value="style[0].name">工作</option>
+        <option :value="style[1].name">生活</option>
+        <option :value="style[2].name">学习</option>
       </select>
       <img @mouseover="over1" src="../../image/save.png" alt ref="beforeImg">
       <img
@@ -30,15 +30,30 @@
   </div>
 </template>
 <script>
-import bus from '../bus.js'
+import bus from "../bus.js";
 export default {
-  data(){
-    return{
-          title:'',
-          type:'',
-          content:'',
-          value:'1'
-    }
+  created() {
+    //如果没有这句代码，select中初始化会是空白的，默认选中就无法实现
+    this.value = this.style[0].name;
+  },
+  data() {
+    return {
+      title: "",
+      type: "",
+      content: "",
+      value: "",
+      style: [
+        {
+          name: "工作"
+        },
+        {
+          name: "生活"
+        },
+        {
+          name: "学习"
+        }
+      ]
+    };
   },
   methods: {
     //保存和取消按钮的样式改变
@@ -63,24 +78,36 @@ export default {
       this.$refs.build.style.display = "block";
     },
     closeBuild() {
+      bus.$emit('closePop')
+      this.title = "";
+      this.content = "";
+      this.value = this.style[0].name;
       this.$refs.build.style.display = "none";
-      
     },
-    build(){
-      const data ={
-        title : this.title,
-        content : this.content,
-        value:this.value
+    build() {
+      bus.$emit('closePop')
+      if(this.title==''){
+         alert('请输入标题~')
+      }else if(this.content==''){
+        alert('请输入内容~')
+      }else{
+        const data = {
+        title: this.title,
+        content: this.content,
+        value: this.value
+      };
+      bus.$emit("build", data);
+      this.title = "";
+      this.content = "";
+      this.value = this.style[0].name;
       }
-        bus.$emit('build',data)
-        this.title=''
-        this.content=''
-        this.value='1'
+      this.$refs.build.style.display='none'
     }
   }
 };
 </script>
 <style scoped>
+
 #build {
   display: none;
   width: 280px;
@@ -90,7 +117,7 @@ export default {
   top: 30%;
   background-color: #eeee;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  z-index: 1
+  z-index: 20;
 }
 .header {
   margin-left: 12px;

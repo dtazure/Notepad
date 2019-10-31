@@ -37,6 +37,7 @@ import bus from "../../bus.js";
 import revise from './revise'
 export default {
   mounted() {
+    
     bus.$on("build", data => {
       this.time = `${date}-${day},${hour}:${minutes}`;
       this.title = data.title;
@@ -44,6 +45,42 @@ export default {
       this.style = data.value;
     });
     bus.$on("build", this.build);
+    let data = this.items
+    
+    bus.$emit('tansform',data)
+    bus.$on('filter',a=>{
+        this.items=a
+    })
+    let work = this.items
+    bus.$emit('work',work)
+    let study = this.items
+    bus.$emit('study',study)
+    let life = this.items
+    bus.$emit('life',life)
+    let total = this.items
+    bus.$emit('total',total)
+
+    bus.$on('save',data=>{
+      let index=data.index
+       this.items[index].title=data.title;
+       this.items[index].content=data.content;
+       this.items[index].time=data.time;
+       this.items[index].style=data.style
+    })
+    bus.$on('filterWork',filterWork=>{
+        this.items=filterWork        
+        
+    })
+     bus.$on('filterLife',filterLife=>{
+        this.items=filterLife
+    })
+     bus.$on('filterStudy',filterStudy=>{
+        this.items=filterStudy
+    })
+    bus.$on('filterTotal',filterTotal=>{
+        this.items=filterTotal
+    })
+    
   },
   components:{
     revise
@@ -57,10 +94,32 @@ export default {
       items: [
         {
           title: "购物",
-          time: "10-07, 00:00",
+          time: "10-28, 00:00",
           content: "蓝月亮袋装洗衣液",
-          style: "2"
+          style: "生活"
+        },
+        {
+           title: "直到世界的尽头",
+          time: "10-29, 00:00",
+          content: "《直到世界终结（世界が终るまでは…）》是日本摇滚乐队WANDS的一支单曲，也是日本动画《灌篮高手》第二期（25-49集）的片尾曲。当初被启用作为《灌篮高手》的片尾曲时，歌曲名被误写成《世界が终るまでは》，其正确的应该为《世界が终わるまでは》。很多网友也认为该曲是为剧中人物三井寿创作的主题音乐。",
+          style: "生活"
+        },
+         {
+           title: "working",
+          time: "10-29, 00:00",
+          content: "The best time to plant a tree is ten years ago, followed by now.",
+          style: "工作"
+        },
+         {
+           title: "1",
+          time: "10-29, 00:00",
+          content: "学习VUE",
+          style: "学习"
         }
+
+        
+        
+        
       ],
       list:{
           title:'',
@@ -81,13 +140,18 @@ export default {
       });
     },
     revise(index){
-      this.$refs.revise.show()
       this.list.title=this.items[index].title
       this.list.content=this.items[index].content
       this.list.style=this.items[index].style
+      this.$refs.revise.show(index)
+      
+      bus.$emit('showPop')
     },
-    delate(index){      
-       this.items.splice(index,1)
+    delate(index){   
+      if(confirm(`确定删除「${this.items[index].title}」吗？此操作不可撤销。`)){
+        this.items.splice(index,1)
+      }   
+       
     }
   }
 };

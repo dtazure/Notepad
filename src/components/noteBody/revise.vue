@@ -2,10 +2,10 @@
   <div id="build" ref="build">
     <div class="header">
       <input type="text" placeholder="标题"  v-model="title">
-      <select v-model="value" >
-        <option :value="1">工作</option>
-        <option :value="2">学习</option>
-        <option :value="3">生活</option>
+       <select v-model="value">
+        <option :value="style[0].name">工作</option>
+        <option :value="style[1].name">生活</option>
+        <option :value="style[2].name">学习</option>
       </select>
       <img @mouseover="over1" src="../../../image/save.png" alt ref="beforeImg">
       <img
@@ -28,14 +28,26 @@
   </div>
 </template>
 <script>
+import bus from "../../bus.js";
+var now = new Date();
+var date = now.getMonth() + 1;
+var day = now.getDate();
+var hour = now.getHours();
+var minutes = now.getMinutes();
+if (day < 10) {
+  day = "0" + day;
+}
+if (date < 10) {
+  date = "0" + date;
+}
+if (hour < 10) {
+  hour = "0" + hour;
+}
+if (minutes < 10) {
+  minutes = "0" + minutes;
+}
+
 export default {
-  mounted(){
-    console.log(this.list.content);
-    
-      this.title=this.list.title
-      this.content=this.list.content
-      this.value=this.list.style
-    },
   props:{
     list:{
   
@@ -46,9 +58,22 @@ export default {
           title:'',
           type:'',
           content:'',
-          value:'1'
+          value:'',
+          index:'',
+          style: [
+        {
+          name: "工作"
+        },
+        {
+          name: "生活"
+        },
+        {
+          name: "学习"
+        }
+      ]
     }
   },
+ 
   methods: {
     
     //保存和取消按钮的样式改变
@@ -69,14 +94,39 @@ export default {
       this.$refs.afterImg2.style.display = "none";
     },
     //build组件的显示与隐藏
-    show() {
+    show(index) {
+       this.content=this.list.content
+      this.title=this.list.title
+      this.time=this.list.time
+      this.value=this.list.style
+        this.index=index 
+                     
+      
       this.$refs.build.style.display = "block";
     },
     closeBuild() {
+      bus.$emit('closePop')
       this.$refs.build.style.display = "none";
       
     },
     save(){
+      
+        const data = {
+          index:this.index,
+          title:this.title,
+          time:`${date}-${day},${hour}:${minutes}`,
+          style:this.value,
+          content:this.content
+        }
+        bus.$emit('save',data)
+        bus.$emit('closePop')
+        this.$refs.build.style.display = "none";
+
+      
+
+
+    },
+    showDetail(){
       
     }
    
@@ -93,7 +143,7 @@ export default {
   top: 30%;
   background-color: #eeee;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  z-index: 1
+  z-index: 20
 }
 .header {
   margin-left: 12px;
